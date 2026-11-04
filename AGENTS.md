@@ -30,3 +30,17 @@ Managed by Trellis. Edits outside this block are preserved; edits inside may be 
 2. **待决策**（可选）—— 需用户拍板才能继续的事，每条自带推荐项、理由与被拒替代。
 
 判据：待决策的每一条都能被一句话拍成「做/不做」；未完成的后续事项不写进回执，一律登记到 `.trellis/tasks/` 下（任务目录或 `task.json` 的 `notes`），回执只报结论与待拍板。
+
+## Agent skills
+
+### Issue tracker
+
+Issues live in the repo's GitHub Issues (uses the `gh` CLI). See `docs/agents/issue-tracker.md`.
+
+### Triage labels
+
+Default five canonical triage labels. See `docs/agents/triage-labels.md`.
+
+### Domain docs
+
+Single-context: one `GLOSSARY.md` + `docs/adr/` at the repo root. See `docs/agents/domain.md`.
