@@ -1,11 +1,10 @@
 # CI 结论 · Linux / Node 22
 
 - job: `success`
-- commit: `5d5fd29560bfe71befa8cda7d3e498ab7971be97`
-- run: 41758492446
+- commit: `9e9398c65d3813d13682ec7cd9aafdf9983a355a`
+- run: 41758952981
 
 ## 测试汇总
-             [33m[2m✓[22m[39m 4 进程 × 250 个 IMMEDIATE 事务：零 DB_LOCKED、零丢失 [33m 452[2mms[22m[39m
         [2m Test Files [22m [1m[32m8 passed[39m[22m[90m (8)[39m
         [2m      Tests [22m [1m[32m112 passed[39m[22m[90m (112)[39m
 
@@ -20,6 +19,6 @@
 
 ## 全局安装冒烟
         OK 安装输出中无 node-gyp / prebuild 痕迹
-        OK 全局命令入口: /tmp/wl-gi-05DCOo/prefix/bin/workreport
+        OK 全局命令入口: /tmp/wl-gi-fGaejP/prefix/bin/workreport
         OK describe：1 行、可 parse、命令数 14
         OK 零运行目录污染
