@@ -1,8 +1,8 @@
 # CI 结论 · macOS / Node 22
 
 - job: `success`
-- commit: `5d5fd29560bfe71befa8cda7d3e498ab7971be97`
-- run: 41758492446
+- commit: `9e9398c65d3813d13682ec7cd9aafdf9983a355a`
+- run: 41758952981
 
 ## 测试汇总
         [2m Test Files [22m [1m[32m8 passed[39m[22m[90m (8)[39m
@@ -19,6 +19,6 @@
 
 ## 全局安装冒烟
         OK 安装输出中无 node-gyp / prebuild 痕迹
-        OK 全局命令入口: /var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/wl-gi-Qdo4gm/prefix/bin/workreport
+        OK 全局命令入口: /var/folders/s6/5hzmn6lx4dz5nxs7k_0slzph0000gn/T/wl-gi-RfQCYN/prefix/bin/workreport
         OK describe：1 行、可 parse、命令数 14
         OK 零运行目录污染
