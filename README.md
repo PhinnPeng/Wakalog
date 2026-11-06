@@ -1,5 +1,7 @@
 # WorkReport
 
+## 1. 项目介绍
+
 本地优先、面向 AI Agent 驱动的命令行工作记录工具。不集成 LLM，只做"哑存储 + 检索"层：
 工作项（`log` 已完成的事／`plan` 计划要做的事）落在用户全局目录的 SQLite 里，
 日报由外部 Agent 读出来整理。
@@ -10,35 +12,85 @@
 workreport describe --format json
 ```
 
-## 实现状态
+### 实现状态
 
 | 阶段 | 内容 | 状态 |
 | :--- | :--- | :--- |
 | M0 | schema 与迁移、WAL/busy_timeout、流分离契约、错误码与退出码、路径展开、`describe`/`doctor` | ✅ 完成（三道门禁全绿） |
 | M1 | `add` / `list` / `show` / `search` / `categories` | ✅ 完成 |
-| M0 S7 | 三平台 CI matrix（`env-paths` 实测对齐 PRD 第 8 节） | ✅ 三平台全绿（run 36542928932：ubuntu / macOS / Windows 各 77/77 + 目录断言 + 无编译工具链）；矩阵已加 Node 22 轴 |
+| M0 S7 | 三平台 CI matrix（`env-paths` 实测对齐 PRD 第 8 节） | ✅ 三平台全绿；矩阵已加 Node 22 轴 |
 | M2 | `update` / `convert` / `delete`+`restore`+`purge` / `config` / `backup` | ✅ 完成 |
 | M3+ | `report` / `export` / `import` | ❌ 未开始 |
 
 未实现的命令会以 `USAGE_ERROR`（退出码 2）拒绝，而不是半途行为。
 
-## 跑起来
+## 2. 安装
 
 要求 Node 提供**无需 flag 的内置 `node:sqlite`**：`engines` 声明 `>=22.22.0 <23 || >=23.4.0`
 （该模块在 22.5 引入但需 `--experimental-sqlite`，23.4 起取消；23.0–23.3 是断档，Node 20 没有）。
 本地与 CI 实测的运行版本是 **22.22.0 与 24.18.0**，无编译工具链依赖。
 
+### 从源码安装（当前）
+
 ```bash
+git clone https://github.com/PhinnPeng/Wakalog.git
+cd Wakalog
 npm ci
 npm run build
+npm link          # 把 workreport 链到全局 PATH
+```
+
+验证：
+
+```bash
+workreport doctor
+workreport describe --format json | head -c 120
+```
+
+### 卸载
+
+```bash
+npm unlink -g @phinnpeng/workreport
+```
+
+## 3. 技能安装
+
+本仓库自带 Agent 技能 `worklog`，位于 `.agents/skills/worklog/`。
+它只编排、不复述契约；运行时从 `workreport describe` 取参数与错误码。
+
+### 安装到 Agent 技能目录
+
+OpenCode / Codex（任选其一）：
+
+```powershell
+# Windows (PowerShell)
+Copy-Item -Recurse .agents\skills\worklog $HOME\.agents\skills\worklog
+```
+
+```bash
+# Linux / macOS
+cp -r .agents/skills/worklog ~/.agents/skills/worklog
+```
+
+Claude Code：
+
+```bash
+cp -r .agents/skills/worklog ~/.claude/skills/worklog
+```
+
+安装后重启 Agent 会话，`worklog` 技能会被自动发现。
+
+## 跑起来（演示）
+
+```bash
 npm run demo      # 建一个演示库，十步走完录入→冲突→检索→自检→表格
 ```
 
 演示库落在 `.tmp-demo/demo.db`，可继续把玩：
 
 ```bash
-node dist/index.js --db .tmp-demo/demo.db list --format table
-node dist/index.js --db .tmp-demo/demo.db categories
+workreport --db .tmp-demo/demo.db list --format table
+workreport --db .tmp-demo/demo.db categories
 ```
 
 ## 用法速览
@@ -82,6 +134,6 @@ workreport doctor
 | :--- | :--- | :--- |
 | Windows | `%LOCALAPPDATA%\workreport\Data\` ✅CI 实测 | `%APPDATA%\workreport\Config\` ✅CI 实测 |
 | Linux | `~/.local/share/workreport/` ✅CI 实测 | `~/.config/workreport/` ✅CI 实测 |
-| macOS | `~/Library/Application Support/workreport/` ✅CI 实测 | `~/Library/Preferences/workreport/` ✅CI 实测（原存疑项已落定） |
+| macOS | `~/Library/Application Support/workreport/` ✅CI 实测 | `~/Library/Preferences/workreport/` ✅CI 实测 |
 
 Linux/macOS 两行已由三平台 CI 实测确认（`npm run ci:paths` 在 ubuntu-24.04 / macos-14 / windows-latest 上各跑一次 `doctor` 并与本表逐条比对）。macOS 的 `config` 落 `Preferences` 这一项原为存疑，现已落定。
