@@ -20,3 +20,6 @@ coverage/
 # Python script caches (generated at runtime, not source)
 __pycache__/
 *.py[cod]
+
+# Trellis (abandoned)
+.trellis/
