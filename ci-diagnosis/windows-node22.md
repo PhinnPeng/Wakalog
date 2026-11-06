@@ -1,11 +1,11 @@
 # CI 结论 · Windows / Node 22
 
 - job: `success`
-- commit: `2b052d3b3d31b19b5c6b414b557a9fe58b774b70`
-- run: 42165927016
+- commit: `e3300ed0fd183b769a1e0ba2bdf383b1e75bc5ce`
+- run: 42169688899
 
 ## 测试汇总
-             [33m[2m✓[22m[39m 4 进程 × 250 个 IMMEDIATE 事务：零 DB_LOCKED、零丢失 [33m 976[2mms[22m[39m
+             [33m[2m✓[22m[39m 4 进程 × 250 个 IMMEDIATE 事务：零 DB_LOCKED、零丢失 [33m 632[2mms[22m[39m
         [2m Test Files [22m [1m[32m8 passed[39m[22m[90m (8)[39m
         [2m      Tests [22m [1m[32m116 passed[39m[22m[90m (116)[39m
 
@@ -20,6 +20,6 @@
 
 ## 全局安装冒烟
         OK 安装输出中无 node-gyp / prebuild 痕迹
-        OK 全局命令入口: C:\Users\RUNNER~1\AppData\Local\Temp\wl-gi-NqbfWA\prefix\workreport.cmd
+        OK 全局命令入口: C:\Users\RUNNER~1\AppData\Local\Temp\wl-gi-ocZbdr\prefix\workreport.cmd
         OK describe：1 行、可 parse、命令数 14
         OK 零运行目录污染
