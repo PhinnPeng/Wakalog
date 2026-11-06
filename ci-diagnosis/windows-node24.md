@@ -1,13 +1,13 @@
 # CI 结论 · Windows / Node 24
 
 - job: `success`
-- commit: `9e9398c65d3813d13682ec7cd9aafdf9983a355a`
-- run: 41758952981
+- commit: `233b91e11681832ec114c8a4488cf0a276040875`
+- run: 42164964106
 
 ## 测试汇总
-             [33m[2m✓[22m[39m 4 进程 × 250 个 IMMEDIATE 事务：零 DB_LOCKED、零丢失 [33m 869[2mms[22m[39m
+             [33m[2m✓[22m[39m 4 进程 × 250 个 IMMEDIATE 事务：零 DB_LOCKED、零丢失 [33m 1092[2mms[22m[39m
         [2m Test Files [22m [1m[32m8 passed[39m[22m[90m (8)[39m
-        [2m      Tests [22m [1m[32m112 passed[39m[22m[90m (112)[39m
+        [2m      Tests [22m [1m[32m116 passed[39m[22m[90m (116)[39m
 
 ## env-paths 实测
         MEASURED win32 data=~/AppData/Local/workreport/Data cfg=~/AppData/Roaming/workreport/Config
@@ -20,6 +20,6 @@
 
 ## 全局安装冒烟
         OK 安装输出中无 node-gyp / prebuild 痕迹
-        OK 全局命令入口: C:\Users\RUNNER~1\AppData\Local\Temp\wl-gi-NRpZ56\prefix\workreport.cmd
+        OK 全局命令入口: C:\Users\RUNNER~1\AppData\Local\Temp\wl-gi-mP5LTh\prefix\workreport.cmd
         OK describe：1 行、可 parse、命令数 14
         OK 零运行目录污染
