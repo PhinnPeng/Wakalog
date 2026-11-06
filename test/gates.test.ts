@@ -122,3 +122,45 @@ describe('门禁 C · describe 与 commander 同源', () => {
     expect(program.commands.map((c) => c.name()).sort()).toEqual(COMMANDS.map((c) => c.name).sort());
   });
 });
+
+const SKILL_DIR = join(process.cwd(), '.agents', 'skills', 'worklog');
+
+function skillFiles(dir: string): string[] {
+  return readdirSync(dir).flatMap((e) => {
+    const p = join(dir, e);
+    if (statSync(p).isDirectory()) return skillFiles(p);
+    return p.endsWith('.md') ? [p] : [];
+  });
+}
+
+describe('门禁 D · 技能文本反漂移', () => {
+  it('技能目录存在且非空', () => {
+    expect(skillFiles(SKILL_DIR).length).toBeGreaterThan(0);
+  });
+
+  it('技能文本不出现错误码字面量', () => {
+    const codes = extractErrorCodes();
+    const banned = new RegExp(`['"\`](${codes.join('|')})['"\`]`);
+    const offenders = skillFiles(SKILL_DIR).filter((f) => banned.test(readFileSync(f, 'utf8')));
+    expect(offenders.map((f) => relative(process.cwd(), f).replaceAll('\\\\', '/'))).toEqual([]);
+  });
+
+  it('技能文本不出现参数声明形态', () => {
+    const banned = /--[\w-]+\s+<[^>]+>/;
+    const offenders = skillFiles(SKILL_DIR).filter((f) => banned.test(readFileSync(f, 'utf8')));
+    expect(offenders.map((f) => relative(process.cwd(), f).replaceAll('\\\\', '/'))).toEqual([]);
+  });
+
+  it('技能文本不复述枚举值清单', () => {
+    const bannedPhrases = [
+      'planned, in_progress, done, blocked',
+      'log, plan',
+      'user, screenshot, import',
+      'json, table, markdown',
+    ];
+    const all = skillFiles(SKILL_DIR).map((f) => readFileSync(f, 'utf8')).join('\n');
+    for (const phrase of bannedPhrases) {
+      expect(all).not.toContain(phrase);
+    }
+  });
+});
