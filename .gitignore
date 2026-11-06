@@ -17,6 +17,6 @@ coverage/
 .env
 .env.*
 
-# Trellis: Python script caches (generated at runtime, not source)
+# Python script caches (generated at runtime, not source)
 __pycache__/
 *.py[cod]
